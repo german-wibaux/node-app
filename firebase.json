@@ -1,0 +1,26 @@
+{
+  "database": {
+    "rules": "database.rules.json"
+  },
+  "functions": {
+    "predeploy": [],
+    "source": "functions" 
+  },
+  "hosting": {
+    "public": "dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "api/v1/**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "storage": {
+    "rules": "storage.rules"
+  }
+}
