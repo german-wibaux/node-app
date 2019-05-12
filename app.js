@@ -1,17 +1,19 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const configMessage = require('./configMessage');
-
 const app = express();
-app.use(bodyParser.json());
-app.use(cors())
+const configMensaje = require('./configMessage');
 
-app.post('/form', (req, res) => {
-    configMessage(req.body);
- res.status(200).send();
+app.use(bodyParser.json());
+app.use(cors({origin: '*'}));
+
+app.post('/formulario', (req, res) => {
+    configMensaje(req.body);
+    res.status(200).send();
 })
 
+
+
 app.listen(3000, () => {
-    console.log('Servidor corriendo')
+console.log('Servidor corriendo')
 });

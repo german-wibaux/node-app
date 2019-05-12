@@ -3,8 +3,11 @@
     "rules": "database.rules.json"
   },
   "functions": {
-    "predeploy": [],
-    "source": "functions" 
+    "predeploy": [
+      "npm --prefix ./functions/ run",
+      "npm --prefix ./functions/ run"
+    ],
+    "source": "functions"
   },
   "hosting": {
     "public": "dist",
