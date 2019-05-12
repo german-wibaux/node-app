@@ -140,7 +140,7 @@ exports.sendMail = functions.https.onRequest((req, res) => {
         const mailOptions = {
             from: req.query.email, // Something like: Jane Doe <janedoe@gmail.com>
             to: 'chalitacriniganpropiedades@gmail.com',
-            subject: req.query.asunto, // email subject
+            subject: 'Asunto: ' + req.query.asunto, // email subject
             html: `<p style="font-size: 14px;">` + 'Email:' + ' ' + req.query.email + '<br>' 
                                                  +  'Telefono:' + ' ' + req.query.telefono   +  '<br>'
                                                  +  'Mensaje:' + ' ' + req.query.mensaje   +` </p> `
@@ -148,7 +148,7 @@ exports.sendMail = functions.https.onRequest((req, res) => {
         // returning result
         return transporter.sendMail(mailOptions, (erro, info) => {
             if(erro){
-                return res.send(erro.toString());
+                return res.send('Error' + 'Sended');
             }
             return res.send('Sended');
         });
