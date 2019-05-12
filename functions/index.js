@@ -134,18 +134,17 @@ let transporter = nodemailer.createTransport({
 });
 
 exports.sendMail = functions.https.onRequest((req, res) => {
+         
     cors(req, res, () => {
 
         const mailOptions = {
             from: req.query.email, // Something like: Jane Doe <janedoe@gmail.com>
             to: 'chalitacriniganpropiedades@gmail.com',
             subject: req.query.asunto, // email subject
-            html: `<p style="font-size: 16px;">Asunto: ` + req.query.asunto + ` </p> />` // email content in HTML
-                  `<p style="font-size: 16px;">Telefono: ` + req.query.telefono + ` </p> />`
-                  `<p style="font-size: 16px;">Email: ` + req.query.email + ` </p> />`
-                  `<p style="font-size: 16px;">Mensaje: ` + req.query.mensaje + ` </p> />`
+            html: `<p style="font-size: 14px;">` + 'Email:' + ' ' + req.query.email + '<br>' 
+                                                 +  'Telefono:' + ' ' + req.query.telefono   +  '<br>'
+                                                 +  'Mensaje:' + ' ' + req.query.mensaje   +` </p> `
         };
-  
         // returning result
         return transporter.sendMail(mailOptions, (erro, info) => {
             if(erro){
