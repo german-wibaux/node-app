@@ -72,6 +72,50 @@
 //         });
 //     });
 // });
+// const functions = require('firebase-functions');
+// const admin = require('firebase-admin');
+// const nodemailer = require('nodemailer');
+// const cors = require('cors')({origin: true});
+// admin.initializeApp();
+
+// /**
+// * Here we're using Gmail to send 
+// */
+// let transporter = nodemailer.createTransport({
+//     service: 'gmail',
+//     auth: {
+//         user: 'germanwibaux@gmail.com',
+//         pass: 'Octubre2018'
+//     }
+// });
+
+// exports.sendMail = functions.https.onRequest((req, res) => {
+//     cors(req, res, () => {
+//         // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+//         // getting dest email by query string
+//         const email = 'germanwibaux@gmail.com';
+
+//         const mailOptions = {
+//             from: req.query.email, // Something like: Jane Doe <janedoe@gmail.com>
+//             to: email,
+//             subject: 'llaal', //req.query.asunto, // email subject  I\'M A PICKLE!!!
+//             html: 
+//                 `<p style="font-size: 16px;">`+'Consulta: '+ req.query.consultat + `</p>`
+//                 // `<p style="font-size: 16px;">`+'Telefono: '+ req.query.telefono + `</p>`
+//                 // `<p style="font-size: 16px;">`+'Enviado por: '+ req.query.email + `</p>
+//                 `<p style="font-size: 16px;">`+ 'Mensaje: ' + req.query.mensaje + `</p>
+//                 <br />` // email content in HTML
+//         };
+  
+//         // returning result
+//         return transporter.sendMail(mailOptions, (erro, info) => {
+//             if(erro){
+//                 return res.send(erro.toString());
+//             }
+//             return res.send(JSON.stringify("Hello from Firebase!"));
+//         });
+//     });
+// });    
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const nodemailer = require('nodemailer');
@@ -84,27 +128,22 @@ admin.initializeApp();
 let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'germanwibaux@gmail.com',
-        pass: 'Octubre2018'
+        user: 'chalitacriniganpropiedades@gmail.com',
+        pass: 'putainmobiliaria'
     }
 });
 
 exports.sendMail = functions.https.onRequest((req, res) => {
     cors(req, res, () => {
-        // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
-        // getting dest email by query string
-        const email = 'germanwibaux@gmail.com';
 
         const mailOptions = {
             from: req.query.email, // Something like: Jane Doe <janedoe@gmail.com>
-            to: email,
-            subject: 'llaal', //req.query.asunto, // email subject  I\'M A PICKLE!!!
-            html: 
-                `<p style="font-size: 16px;">`+'Consulta: '+ req.query.consultat + `</p>`
-                // `<p style="font-size: 16px;">`+'Telefono: '+ req.query.telefono + `</p>`
-                // `<p style="font-size: 16px;">`+'Enviado por: '+ req.query.email + `</p>
-                `<p style="font-size: 16px;">`+ 'Mensaje: ' + req.query.mensaje + `</p>
-                <br />` // email content in HTML
+            to: 'chalitacriniganpropiedades@gmail.com',
+            subject: req.query.asunto, // email subject
+            html: `<p style="font-size: 16px;">Asunto: ` + req.query.asunto + ` </p> />` // email content in HTML
+                  `<p style="font-size: 16px;">Telefono: ` + req.query.telefono + ` </p> />`
+                  `<p style="font-size: 16px;">Email: ` + req.query.email + ` </p> />`
+                  `<p style="font-size: 16px;">Mensaje: ` + req.query.mensaje + ` </p> />`
         };
   
         // returning result
@@ -112,11 +151,10 @@ exports.sendMail = functions.https.onRequest((req, res) => {
             if(erro){
                 return res.send(erro.toString());
             }
-            return res.send(JSON.stringify("Hello from Firebase!"));
+            return res.send('Sended');
         });
-    });
-});    
-
+    });    
+});
 
 
 
