@@ -141,8 +141,8 @@ exports.sendMail = functions.https.onRequest((req, res) => {
             from: req.query.email, // Something like: Jane Doe <janedoe@gmail.com>
             to: 'chalitacriniganpropiedades@gmail.com',
             subject: 'Asunto: ' + req.query.asunto, // email subject
-            html: `<p style="font-size: 14px;">` + 'Email:' + ' ' + req.query.email + '<br>' 
-                                                 +  'Telefono:' + ' ' + req.query.telefono   +  '<br>'
+            html: `<p style="font-size: 14px;">` + 'Telefono:' + ' ' + req.query.telefono + '<br>' 
+                                                 +  'Email:' + ' ' + req.query.email   +  '<br>'
                                                  +  'Mensaje:' + ' ' + req.query.mensaje   +` </p> `
         };
         // returning result
@@ -155,5 +155,27 @@ exports.sendMail = functions.https.onRequest((req, res) => {
     });    
 });
 
+exports.sendMailTas = functions.https.onRequest((req, res) => {
+         
+    cors(req, res, () => {
+
+        const mailOptions = {
+            from: req.query.email, // Something like: Jane Doe <janedoe@gmail.com>
+            to: 'chalitacriniganpropiedades@gmail.com',
+            subject: 'Pedido de tasación' , // email subject
+            html: `<p style="font-size: 14px;">` + 'Nombre:' + ' ' + req.query.nombre + '<br>' 
+                                                 +  'Telefono:' + ' ' + req.query.telefono   +  '<br>'
+                                                 +  'Email:' + ' ' + req.query.email   +  '<br>'
+                                                 +  'Mensaje:' + ' ' + req.query.mensaje   +` </p> `
+        };
+        // returning result
+        return transporter.sendMail(mailOptions, (erro, info) => {
+            if(erro){
+                return res.send('Error' + 'Sended');
+            }
+            return res.send('Sended');
+        });
+    });    
+});
 
 
